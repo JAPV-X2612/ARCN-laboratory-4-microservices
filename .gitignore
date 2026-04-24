@@ -203,3 +203,5 @@ apidocs/
 # Claude Code Local Settings
 # ===================================
 .claude/settings.local.json
+
+DELETE/
