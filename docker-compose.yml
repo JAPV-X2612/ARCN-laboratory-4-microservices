@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+
+  # ──────────────────────────────────────────
+  # RabbitMQ Message Broker
+  # ──────────────────────────────────────────
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"    # AMQP protocol port
+      - "15672:15672"  # Management UI port
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - event-network
+
+  # ──────────────────────────────────────────
+  # Producer Microservice
+  # ──────────────────────────────────────────
+  producer:
+    image: <YOUR_DOCKER_HUB_USERNAME>/producer-service:latest
+    container_name: producer-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - event-network
+
+  # ──────────────────────────────────────────
+  # Consumer Microservice
+  # ──────────────────────────────────────────
+  consumer:
+    image: <YOUR_DOCKER_HUB_USERNAME>/consumer-service:latest
+    container_name: consumer-service
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - event-network
+
+# ──────────────────────────────────────────
+# Shared Network
+# ──────────────────────────────────────────
+networks:
+  event-network:
+    driver: bridge
