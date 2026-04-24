@@ -1,0 +1,56 @@
+{
+    "name": "ARCN Lab 4 - Spring Boot Microservices with RabbitMQ",
+    "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
+
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest",
+            "enableNonRootDocker": "true",
+            "moby": "true"
+        },
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "none",
+            "installMaven": "true",
+            "mavenVersion": "3.9.6",
+            "installGradle": "false"
+        }
+    },
+
+    "forwardPorts": [8080, 5672, 15672],
+    "portsAttributes": {
+        "8080": {
+            "label": "Producer REST API",
+            "onAutoForward": "notify"
+        },
+        "15672": {
+            "label": "RabbitMQ Management UI",
+            "onAutoForward": "notify"
+        },
+        "5672": {
+            "label": "RabbitMQ AMQP",
+            "onAutoForward": "silent"
+        }
+    },
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "vmware.vscode-spring-boot",
+                "ms-azuretools.vscode-docker",
+                "redhat.java",
+                "pivotal.vscode-boot-dev-pack",
+                "eamodio.gitlens"
+            ],
+            "settings": {
+                "java.configuration.updateBuildConfiguration": "automatic",
+                "java.compile.nullAnalysis.mode": "automatic",
+                "editor.formatOnSave": true,
+                "editor.tabSize": 4
+            }
+        }
+    },
+
+    "postCreateCommand": "echo '--- Environment Ready ---' && java -version && mvn --version && docker --version && docker compose version",
+    "remoteUser": "vscode"
+}
