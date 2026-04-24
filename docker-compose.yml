@@ -25,7 +25,7 @@ services:
   # Producer Microservice
   # ──────────────────────────────────────────
   producer:
-    image: <YOUR_DOCKER_HUB_USERNAME>/producer-service:latest
+    image: japv2612/producer-service:latest
     container_name: producer-service
     ports:
       - "8080:8080"
@@ -44,7 +44,7 @@ services:
   # Consumer Microservice
   # ──────────────────────────────────────────
   consumer:
-    image: <YOUR_DOCKER_HUB_USERNAME>/consumer-service:latest
+    image: japv2612/consumer-service:latest
     container_name: consumer-service
     environment:
       - SPRING_RABBITMQ_HOST=rabbitmq
