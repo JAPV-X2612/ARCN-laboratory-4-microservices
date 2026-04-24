@@ -184,7 +184,7 @@ docker login -u <YOUR_DOCKER_HUB_USERNAME>
 > Enter your **Personal Access Token** when prompted — do not use your account password.
 > Generate one at *Docker Hub → Account Settings → Personal Access Tokens*.
 
-<img src="assets/images/3-docker-hub-login.png" alt="Docker Hub Login">
+<img src="assets/images/3-docker-hub-login.png" alt="Docker Hub Login" width="70%">
 
 #### Step 2 — Build and push the Producer image
 
@@ -232,7 +232,7 @@ Docker Compose starts three services in the correct order:
 2. **`producer-service`** — starts after RabbitMQ is healthy.
 3. **`consumer-service`** — starts after RabbitMQ is healthy.
 
-<img src="assets/images/7-docker-compose-up.png" alt="Docker Compose Up">
+<img src="assets/images/7-docker-compose-up.png" alt="Docker Compose Up" width="70%">
 
 #### 📸 Docker Desktop — All Containers Running
 
