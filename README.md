@@ -232,7 +232,7 @@ Docker Compose starts three services in the correct order:
 2. **`producer-service`** — starts after RabbitMQ is healthy.
 3. **`consumer-service`** — starts after RabbitMQ is healthy.
 
-<img src="assets/images/7-docker-compose-up.png" alt="Docker Compose Up" width="70%">
+<img src="assets/images/7-docker-compose-up.png" alt="Docker Compose Up" width="90%">
 
 #### 📸 Docker Desktop — All Containers Running
 
