@@ -49,7 +49,7 @@ unavailable, messages accumulate in the durable queue and are processed once it 
 
 ## 🏗️ Architecture Overview
 
-<img src="assets/images/0-event-driven-microservices-architecture.png" alt="Event-Driven Microservices Architecture Diagram" width="70%">
+<img src="assets/images/0-event-driven-microservices-architecture.png" alt="Event-Driven Microservices Architecture Diagram">
 
 The end-to-end message flow is:
 
@@ -160,14 +160,14 @@ cd ..
 
 #### 📸 Producer — Tests Passing
 
-<img src="assets/images/1-producer-tests-passing.png" alt="Producer Tests Passing" width="70%">
+<img src="assets/images/1-producer-tests-passing.png" alt="Producer Tests Passing">
 
 All **5 service tests** and **5 controller slice tests** pass.
 The JaCoCo report confirms coverage above the **80 % minimum threshold**.
 
 #### 📸 Consumer — Tests Passing
 
-<img src="assets/images/2-consumer-tests-passing.png" alt="Consumer Tests Passing" width="70%">
+<img src="assets/images/2-consumer-tests-passing.png" alt="Consumer Tests Passing" width=70%">
 
 All **6 processor service tests** and **3 listener tests** pass with full coverage.
 
@@ -184,7 +184,7 @@ docker login -u <YOUR_DOCKER_HUB_USERNAME>
 > Enter your **Personal Access Token** when prompted — do not use your account password.
 > Generate one at *Docker Hub → Account Settings → Personal Access Tokens*.
 
-<img src="assets/images/3-docker-hub-login.png" alt="Docker Hub Login" width="70%">
+<img src="assets/images/3-docker-hub-login.png" alt="Docker Hub Login">
 
 #### Step 2 — Build and push the Producer image
 
@@ -197,7 +197,7 @@ docker build -t <YOUR_DOCKER_HUB_USERNAME>/producer-service:latest ./producer-se
 docker push <YOUR_DOCKER_HUB_USERNAME>/producer-service:latest
 ```
 
-<img src="assets/images/4-producer-image-pushed.png" alt="Producer Image Pushed to Docker Hub" width="70%">
+<img src="assets/images/4-producer-image-pushed.png" alt="Producer Image Pushed to Docker Hub">
 
 #### Step 3 — Build and push the Consumer image
 
@@ -206,11 +206,11 @@ docker build -t <YOUR_DOCKER_HUB_USERNAME>/consumer-service:latest ./consumer-se
 docker push <YOUR_DOCKER_HUB_USERNAME>/consumer-service:latest
 ```
 
-<img src="assets/images/5-consumer-image-pushed.png" alt="Consumer Image Pushed to Docker Hub" width="70%">
+<img src="assets/images/5-consumer-image-pushed.png" alt="Consumer Image Pushed to Docker Hub">
 
 #### Step 4 — Verify both repositories on Docker Hub
 
-<img src="assets/images/6-docker-hub-repositories.png" alt="Docker Hub Repositories" width="70%">
+<img src="assets/images/6-docker-hub-repositories.png" alt="Docker Hub Repositories">
 
 Both `producer-service` and `consumer-service` repositories should appear with the `latest` tag.
 
@@ -232,11 +232,11 @@ Docker Compose starts three services in the correct order:
 2. **`producer-service`** — starts after RabbitMQ is healthy.
 3. **`consumer-service`** — starts after RabbitMQ is healthy.
 
-<img src="assets/images/7-docker-compose-up.png" alt="Docker Compose Up" width="70%">
+<img src="assets/images/7-docker-compose-up.png" alt="Docker Compose Up">
 
 #### 📸 Docker Desktop — All Containers Running
 
-<img src="assets/images/8-docker-desktop-running.png" alt="Docker Desktop Running" width="70%">
+<img src="assets/images/8-docker-desktop-running.png" alt="Docker Desktop Running">
 
 #### 📸 Container Status
 
@@ -244,7 +244,7 @@ Docker Compose starts three services in the correct order:
 docker-compose ps
 ```
 
-<img src="assets/images/9-containers-running.png" alt="All Containers Running" width="70%">
+<img src="assets/images/9-containers-running.png" alt="All Containers Running">
 
 All three containers must show status **`Up`** before proceeding.
 
@@ -270,7 +270,7 @@ curl -s -X POST "http://localhost:8080/api/messages/send" \
 }
 ```
 
-<img src="assets/images/10-send-message-curl.png" alt="Send Message via curl" width="70%">
+<img src="assets/images/10-send-message-curl.png" alt="Send Message via curl">
 
 #### Verify the Consumer processed the message
 
@@ -278,7 +278,7 @@ curl -s -X POST "http://localhost:8080/api/messages/send" \
 docker-compose logs consumer
 ```
 
-<img src="assets/images/11-consumer-logs.png" alt="Consumer Logs" width="70%">
+<img src="assets/images/11-consumer-logs.png" alt="Consumer Logs">
 
 The consumer logs must show:
 
@@ -293,12 +293,12 @@ Processing message: 'Hello from local Docker'
 
 Open `http://localhost:15672` in your browser and log in with `guest` / `guest`.
 
-<img src="assets/images/12-rabbitmq-management-ui.png" alt="RabbitMQ Management UI" width="70%">
+<img src="assets/images/12-rabbitmq-management-ui.png" alt="RabbitMQ Management UI">
 
 Navigate to **Queues → `messages.queue`** to inspect the queue metrics,
 message rates, and the active consumer connection.
 
-<img src="assets/images/13-rabbitmq-queue-status.png" alt="RabbitMQ Queue Status" width="70%">
+<img src="assets/images/13-rabbitmq-queue-status.png" alt="RabbitMQ Queue Status">
 
 After all messages are consumed the **Ready** count returns to **0**,
 confirming successful end-to-end delivery.
@@ -324,7 +324,7 @@ Then inspect the consumer logs:
 docker-compose logs consumer --tail 20
 ```
 
-<img src="assets/images/14-multiple-messages-processed.png" alt="Multiple Messages Processed" width="70%">
+<img src="assets/images/14-multiple-messages-processed.png" alt="Multiple Messages Processed">
 
 All three messages must appear processed **in order** in the consumer output.
 
